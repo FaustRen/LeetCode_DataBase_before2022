@@ -1,0 +1,46 @@
+
+
+## 184. Rising Temperature
+
+### Problem
+Given a `Weather` table, write a SQL query to find all dates' Ids with higher temperature compared to its previous (yesterday's) dates.
+
+| Id(INT) | RecordDate(DATE) | Temperature(INT) |
+|---------|-----------------|-----------------|
+|       1 |       2015-01-01 |               10|
+|       2 |       2015-01-02 |               25|
+|       3 |       2015-01-03 |               20|
+|       4 |       2015-01-04 |               30|
+
+### Output
+
+| Id(INT) |
+|---------|
+|       2 |
+|       4 |
+
+### Example
+
+#### Input
+
+| Id(INT) | RecordDate(DATE) | Temperature(INT) |
+|---------|-----------------|-----------------|
+|       1 |       2015-01-01 |               10|
+|       2 |       2015-01-02 |               25|
+|       3 |       2015-01-03 |               20|
+|       4 |       2015-01-04 |               30|
+
+#### Output
+
+| Id(INT) |
+|---------|
+|       2 |
+|       4 |
+
+### Explanation
+The second day's temperature is higher than the first day's, so the result is `2`.
+The fourth day's temperature is higher than the third day's, so the result is `4`.
+
+SELECT w1.Id
+FROM Weather w1, Weather w2
+WHERE w1.Temperature > w2.Temperature AND TO_DAYS(w1.RecordDate) = TO_DAYS(w2.RecordDate) + 1;

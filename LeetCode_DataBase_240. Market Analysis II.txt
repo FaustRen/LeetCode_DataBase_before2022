@@ -1,0 +1,60 @@
+
+
+## LeetCode 240. Market Analysis II
+
+### Problem
+
+You are given a table `sales`, which holds the seller id, the product id, the year and the quantity sold in the corresponding year.
+
+| seller_id | product_id | year | quantity |
+| --------- | ---------- | ---- | -------- |
+| 1         | 1          | 2000 | 10       |
+| 1         | 1          | 2000 | 12       |
+| 1         | 2          | 2001 | 15       |
+| 2         | 3          | 2002 | 20       |
+| 2         | 4          | 2002 | 25       |
+
+Write a query to find the seller id, the product id and the total quantity sold for each product id.
+
+### Output Table
+
+| seller_id | product_id | total_quantity |
+| --------- | ---------- | ------------- |
+| 1         | 1          | 22            |
+| 1         | 2          | 15            |
+| 2         | 3          | 20            |
+| 2         | 4          | 25            |
+
+### Example
+
+#### Input
+
+| seller_id | product_id | year | quantity |
+| --------- | ---------- | ---- | -------- |
+| 1         | 1          | 2000 | 10       |
+| 1         | 1          | 2000 | 12       |
+| 1         | 2          | 2001 | 15       |
+| 2         | 3          | 2002 | 20       |
+| 2         | 4          | 2002 | 25       |
+
+#### Output
+
+| seller_id | product_id | total_quantity |
+| --------- | ---------- | ------------- |
+| 1         | 1          | 22            |
+| 1         | 2          | 15            |
+| 2         | 3          | 20            |
+| 2         | 4          | 25            |
+
+### Explanation
+
+For each product id, we need to sum up the quantity sold by the seller. The result is the total quantity sold for each product id.
+
+SELECT p1.price
+FROM Prices p1
+LEFT JOIN Prices p2
+ON p1.product = p2.product
+AND p2.price <= p1.price
+AND p2.week < p1.week
+GROUP BY p1.price
+HAVING COUNT(p2.product) = 0;

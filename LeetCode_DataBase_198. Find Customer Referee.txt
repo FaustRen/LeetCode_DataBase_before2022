@@ -1,0 +1,68 @@
+
+
+## 198. Find Customer Referee
+
+### Problem
+
+Given a table `customer` holding customers information and `referee` holding referee information of the customers.
+
+Write a SQL query to find the referee of each customer.
+
+| customer |
+| :------ |
+| customer_id |
+| customer_name |
+| referee_id |
+
+| referee |
+| :------ |
+| referee_id |
+| referee_name |
+
+### Example
+
+#### Input
+
+| customer |
+| :------ |
+| 1 |
+| Alice |
+| 4 |
+| 2 |
+| Bob |
+| 3 |
+| 3 |
+| Chris |
+| NULL |
+
+| referee |
+| :------ |
+| 1 |
+| John |
+| 2 |
+| Jack |
+| 3 |
+| Tom |
+| 4 |
+| Jerry |
+
+#### Output
+
+| customer_name | referee_name |
+| :------------ | :---------- |
+| Alice | Jerry |
+| Bob | Jack |
+| Chris | Tom |
+
+### Explanation
+
+The referee with `referee_id` 4 is `Jerry` and he is the referee of `Alice`.
+
+The referee with `referee_id` 3 is `Tom` and he is the referee of `Chris`.
+
+The referee with `referee_id` 2 is `Jack` and he is the referee of `Bob`.
+
+SELECT c1.name AS customer 
+FROM customers c1 
+JOIN customers c2 ON c1.referee_id = c2.id 
+WHERE c2.name = 'John Smith';

@@ -1,0 +1,66 @@
+
+
+## LeetCode 195. Get Highest Answer Rate Question
+
+### Problem
+
+Given a table `survey_log` with these columns: 
+
+| Column Name | Type    |
+| ----------- | ------- |
+| user_id     | int     |
+| action      | enum    |
+| question_id | int     |
+| answer_id   | int     |
+
+`action` is an enum of type `['create', 'answer']`.
+
+Write an SQL query to find the question_id which has the highest answer rate.
+
+### Table: survey_log
+
+| user_id | action   | question_id | answer_id |
+| ------- | -------- | ----------- | --------- |
+| 1       | create   | 1           | null      |
+| 1       | answer   | 1           | 1         |
+| 2       | create   | 2           | null      |
+| 2       | answer   | 2           | 2         |
+| 3       | create   | 1           | null      |
+| 4       | create   | 2           | null      |
+
+### Output
+
+| question_id |
+| ----------- |
+| 2           |
+
+### Explanation
+
+Question 2 has an answer rate of `1/2` while question 1 has an answer rate of `1/3`.
+
+SELECT
+  q.id,
+  q.title,
+  q.accepted_answer_id,
+  q.view_count,
+  a.score
+FROM
+  (SELECT
+     id,
+     title,
+     accepted_answer_id,
+     view_count
+   FROM
+     Question) AS q
+INNER JOIN
+  (SELECT
+     parent_id,
+     SUM(score) AS score
+   FROM
+     Answer
+   GROUP BY
+     parent_id) AS a
+ON q.id = a.parent_id
+ORDER BY
+  (a.score / q.view_count) DESC
+LIMIT 1;

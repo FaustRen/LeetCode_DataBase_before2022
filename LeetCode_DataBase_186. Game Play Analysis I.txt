@@ -1,0 +1,45 @@
+
+
+## 186. Game Play Analysis I
+
+### Problem Statement
+
+You are given a table `logs` that includes a column `player_id` and `event_name`.
+
+Write a SQL query to find the number of distinct players who started a game but did not complete it.
+
+Table: `logs`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| player_id   | int     |
+| event_name  | varchar |
+
+### Example
+
+Input
+
+| player_id | event_name |
+| --------- | ---------- |
+| 1         | start      |
+| 1         | end        |
+| 2         | start      |
+| 3         | start      |
+| 3         | end        |
+
+Output
+
+| count |
+| ----- |
+| 1     |
+
+Explanation
+
+Only player 2 started the game but did not complete it.
+
+```mysql
+SELECT player_id, event_date, COUNT(DISTINCT event_name) 
+FROM Activity 
+GROUP BY player_id, event_date 
+HAVING COUNT(DISTINCT event_name) > 1;
+```

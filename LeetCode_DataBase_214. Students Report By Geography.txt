@@ -1,0 +1,59 @@
+
+
+## 214. Students Report By Geography
+
+### Problem Statement
+
+Given a table `student_geography` with the following structure:
+
+| student_id | student_name | country |
+| ---------- | ------------ | ------- |
+| 1          | John         | USA     |
+| 2          | Alice        | Canada  |
+| 3          | Steve        | USA     |
+| 4          | Brian        | Canada  |
+| 5          | Jon          | USA     |
+
+Write a SQL query to generate a report that provides the number of students in each country.
+
+### Output Table
+
+| country | num_students |
+| ------- | ------------ |
+| USA     | 3            |
+| Canada  | 2            |
+
+### Example
+
+**Input Table:**
+
+| student_id | student_name | country |
+| ---------- | ------------ | ------- |
+| 1          | John         | USA     |
+| 2          | Alice        | Canada  |
+| 3          | Steve        | USA     |
+| 4          | Brian        | Canada  |
+| 5          | Jon          | USA     |
+
+**Output Table:**
+
+| country | num_students |
+| ------- | ------------ |
+| USA     | 3            |
+| Canada  | 2            |
+
+### Explanation
+
+We can use `GROUP BY` to group the records by country and `COUNT` to count the number of students in each country. The query is as follows:
+
+```
+SELECT country, COUNT(*) AS num_students
+FROM student_geography
+GROUP BY country;
+```
+
+```sql
+SELECT geography, COUNT(*) AS num_student
+FROM students
+GROUP BY geography
+```

@@ -1,0 +1,71 @@
+
+
+## 180. Employees Earning More Than Their Managers
+
+### Table: Employee
+
+| Id | Name  | Salary | ManagerId |
+|----|-------|--------|-----------|
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
+
+### Output Table: Employee
+
+| Id | Name |
+|----|------|
+| 1  | Joe  |
+
+### Example 1
+
+#### Input
+
+Table: Employee
+
+| Id | Name  | Salary | ManagerId |
+|----|-------|--------|-----------|
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
+
+#### Output
+
+| Id | Name |
+|----|------|
+| 1  | Joe  |
+
+#### Explanation
+
+Employee with Id 1 has a Salary of 70000 and his manager with Id 3 has a Salary of 60000.
+
+### Example 2
+
+#### Input
+
+Table: Employee
+
+| Id | Name  | Salary | ManagerId |
+|----|-------|--------|-----------|
+| 1  | Joe   | 80000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 70000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
+
+#### Output
+
+| Id | Name  |
+|----|-------|
+| 1  | Joe   |
+| 2  | Henry |
+
+#### Explanation
+
+Employee with Id 1 has a Salary of 80000 and his manager with Id 3 has a Salary of 70000.
+
+Employee with Id 2 has a Salary of 80000 and his manager with Id 4 has a Salary of 90000.
+
+SELECT e1.Name AS 'Employee'
+FROM Employee e1, Employee e2
+WHERE e1.ManagerId = e2.Id AND e1.Salary > e2.Salary;

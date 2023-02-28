@@ -1,0 +1,65 @@
+
+
+## LeetCode 219. Customers Who Bought Products A and B but Not C
+
+### Problem
+
+Write a SQL query to find all customers who have bought both products A and B but not C.
+
+### Table: Purchases
+
+| customer_id | product_name |
+| ----------- | ------------ |
+| 1           | A            |
+| 2           | B            |
+| 3           | C            |
+| 4           | A            |
+| 5           | B            |
+| 6           | A            |
+| 7           | B            |
+
+### Output Table:
+
+| customer_id |
+| ----------- |
+| 1           |
+| 4           |
+| 6           |
+
+### Explanation
+
+The customers with `customer_id` 1, 4 and 6 have bought both products A and B but not C.
+
+### Example
+
+#### Input
+
+Table: Purchases
+
+| customer_id | product_name |
+| ----------- | ------------ |
+| 1           | A            |
+| 2           | B            |
+| 3           | C            |
+| 4           | A            |
+| 5           | B            |
+| 6           | A            |
+| 7           | B            |
+
+#### Output
+
+| customer_id |
+| ----------- |
+| 1           |
+| 4           |
+| 6           |
+
+SELECT c.customer_name
+FROM Customers c
+INNER JOIN Orders o
+    ON c.customer_id = o.customer_id
+INNER JOIN Order_items oi
+    ON o.order_id = oi.order_id
+WHERE oi.product_name IN ('Product A', 'Product B')
+GROUP BY c.customer_name
+HAVING SUM(CASE WHEN oi.product_name = 'Product C' THEN 1 ELSE 0 END) = 0;

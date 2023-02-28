@@ -1,0 +1,77 @@
+
+
+## 189. Game Play Analysis IV
+
+### Table: Activity
+
+| Column Name | Type    |
+| ----------- | ------- |
+| player_id   | int     |
+| device_id   | int     |
+| event_date  | date    |
+| games_played| int     |
+
+### Table: Device
+
+| Column Name | Type    |
+| ----------- | ------- |
+| device_id   | int     |
+| type        | enum    |
+
+### Table: Players
+
+| Column Name | Type    |
+| ----------- | ------- |
+| player_id   | int     |
+| player_name | varchar |
+
+### Output Table:
+
+| player_name | device_type | total_games_played |
+| ----------- | ----------- | ------------------ |
+
+### Example 1
+
+#### Input
+
+Activity table:
+
+| player_id | device_id | event_date | games_played |
+| --------- | --------- | ---------- | ------------ |
+| 1         | 1         | 2019-05-01 | 10           |
+| 1         | 2         | 2019-05-02 | 15           |
+| 2         | 3         | 2019-06-21 | 20           |
+
+Device table:
+
+| device_id | type      |
+| --------- | --------- |
+| 1         | mobile    |
+| 2         | desktop   |
+| 3         | tablet    |
+
+Players table:
+
+| player_id | player_name |
+| --------- | ----------- |
+| 1         | Dan         |
+| 2         | Alex        |
+
+#### Output
+
+| player_name | device_type | total_games_played |
+| ----------- | ----------- | ------------------ |
+| Dan         | mobile      | 10                 |
+| Dan         | desktop     | 15                 |
+| Alex        | tablet      | 20                 |
+
+#### Explanation
+
+Dan played 10 games on mobile and 15 games on desktop, so the total games played by Dan is 10 + 15 = 25. Alex played 20 games on tablet, so the total games played by Alex is 20.
+
+SELECT 
+  player_id, 
+  COUNT(DISTINCT activity_date) AS days
+FROM Activity
+GROUP BY player_id
+HAVING days > 1;

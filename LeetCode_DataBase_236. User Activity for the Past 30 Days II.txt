@@ -1,0 +1,65 @@
+
+
+## 236. User Activity for the Past 30 Days II
+
+### Table: `Activity`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| user_id     | int     |
+| session_id  | int     |
+| activity    | enum    |
+| timestamp   | datetime|
+
+### Table: `Users`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| user_id     | int     |
+| join_date   | date    |
+
+### Output Table: `Activity`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| user_id     | int     |
+| sessions    | int     |
+| average_activity | int     |
+
+### Example 1
+
+#### Input Table: `Activity`
+
+| user_id | session_id | activity | timestamp            |
+| ------- | ---------- | -------- | ------------------- |
+| 1       | 1          | open     | 2019-07-29 00:00:00 |
+| 1       | 1          | close    | 2019-07-29 00:05:00 |
+| 2       | 4          | open     | 2019-07-29 01:00:00 |
+| 2       | 4          | close    | 2019-07-29 01:02:00 |
+
+#### Input Table: `Users`
+
+| user_id | join_date  |
+| ------- | ---------- |
+| 1       | 2019-07-28 |
+| 2       | 2019-07-25 |
+
+#### Output Table: `Activity`
+
+| user_id | sessions | average_activity |
+| ------- | -------- | ---------------- |
+| 1       | 1        | 5                |
+| 2       | 1        | 2                |
+
+#### Explanation
+
+User 1 joined on 2019-07-28 and had 1 session with an average activity of 5 minutes.
+
+User 2 joined on 2019-07-25 and had 1 session with an average activity of 2 minutes.
+
+SELECT
+    user_id,
+    SUM(CASE WHEN action_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND CURDATE() THEN 1 ELSE 0 END) AS active_days
+FROM
+    Activity
+GROUP BY user_id;

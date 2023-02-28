@@ -1,0 +1,60 @@
+
+
+## 202. Classes More Than 5 Students
+
+### Problem
+
+There is a table `courses` with columns: `student` and `class`
+
+Write a SQL query to find the classes with more than or equal to 5 students.
+
+For example, the table:
+
+| student | class |
+|---------|-------|
+| A       | Math  |
+| B       | English |
+| C       | Math |
+| D       | Biology |
+| E       | Math |
+| F       | Computer |
+| G       | Math |
+| H       | Math |
+| I       | Math |
+
+Should output:
+
+| class |
+|-------|
+| Math  |
+
+### Input
+
+Table: `courses`
+
+| student | class |
+|---------|-------|
+| A       | Math  |
+| B       | English |
+| C       | Math |
+| D       | Biology |
+| E       | Math |
+| F       | Computer |
+| G       | Math |
+| H       | Math |
+| I       | Math |
+
+### Output
+
+| class |
+|-------|
+| Math  |
+
+### Explanation
+
+Only Math class has more than 5 students, so we only need to output Math.
+
+SELECT class
+FROM courses
+GROUP BY class
+HAVING COUNT(DISTINCT student) > 5;

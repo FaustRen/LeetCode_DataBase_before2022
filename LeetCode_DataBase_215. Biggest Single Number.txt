@@ -1,0 +1,36 @@
+
+
+## 215. Kth Largest Element in an Array
+
+### Problem
+
+Given an array of integers, find the kth largest element in the array.
+
+### Note
+
+You may assume k is always valid, 1 ≤ k ≤ array's length.
+
+### Example 1:
+
+Input: `[3,2,1,5,6,4]` and k = 2
+
+Output: `5`
+
+### Example 2:
+
+Input: `[3,2,3,1,2,4,5,5,6]` and k = 4
+
+Output: `4`
+
+### Explanation
+
+The kth largest element in an array is the kth largest element in the sorted order, not the kth distinct element.
+
+In Example 1, the kth largest element is 5.
+
+In Example 2, the kth largest element is 4.
+
+SELECT MAX(number) AS biggest_single_number
+FROM (SELECT number FROM table_name
+      GROUP BY number
+      HAVING COUNT(*) = 1) AS t;

@@ -1,0 +1,75 @@
+
+
+## LeetCode 187. Game Play Analysis II
+
+### Problem
+
+Table: `Activity`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| player_id   | int     |
+| device_id   | int     |
+| event_date  | date    |
+| games_played| int     |
+
+Write an SQL query that reports the total number of games played by each player on a given day.
+
+### Input Table
+
+Table: `Activity`
+
+| player_id | device_id | event_date | games_played |
+| --------- | --------- | ---------- | ------------ |
+| 1         | 2         | 2020-05-01 | 7            |
+| 1         | 2         | 2020-05-02 | 3            |
+| 2         | 3         | 2020-05-01 | 1            |
+| 3         | 1         | 2020-05-01 | 3            |
+| 3         | 4         | 2020-05-01 | 4            |
+
+### Output Table
+
+| player_id | games_played |
+| --------- | ------------ |
+| 1         | 10           |
+| 2         | 1            |
+| 3         | 7            |
+
+### Example
+
+#### Input
+
+Table: `Activity`
+
+| player_id | device_id | event_date | games_played |
+| --------- | --------- | ---------- | ------------ |
+| 1         | 2         | 2020-05-01 | 7            |
+| 1         | 2         | 2020-05-02 | 3            |
+| 2         | 3         | 2020-05-01 | 1            |
+| 3         | 1         | 2020-05-01 | 3            |
+| 3         | 4         | 2020-05-01 | 4            |
+
+#### Output
+
+| player_id | games_played |
+| --------- | ------------ |
+| 1         | 10           |
+| 2         | 1            |
+| 3         | 7            |
+
+### Explanation
+
+Player 1 played 7 games on 2020-05-01 and 3 games on 2020-05-02, so the total number of games played by player 1 is 10.
+
+Player 2 played 1 game on 2020-05-01.
+
+Player 3 played 3 games on 2020-05-01 and 4 games on 2020-05-02, so the total number of games played by player 3 is 7.
+
+```sql
+SELECT p.player_id, p.player_name, COUNT(DISTINCT g.game_id) as num_distinct_games
+FROM Activity a
+LEFT JOIN Player p ON a.player_id = p.player_id
+LEFT JOIN Game g ON a.game_id = g.game_id
+GROUP BY p.player_id, p.player_name
+HAVING COUNT(DISTINCT g.game_id) > 1
+```

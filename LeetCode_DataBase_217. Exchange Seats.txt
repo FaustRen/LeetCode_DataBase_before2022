@@ -1,0 +1,74 @@
+
+
+## 217. Exchange Seats
+
+### Description
+
+Mary is a teacher in a middle school and she has a table `seat` storing students' names and their corresponding seat ids.
+
+The column `id` is continuous increment.
+
+Mary wants to change seats for the adjacent students.
+
+Can you write a SQL query to output the result for Mary?
+
+### Table: `seat`
+
+| id  | student |
+|-----|---------|
+| 1   | Abbot   |
+| 2   | Doris   |
+| 3   | Emerson |
+| 4   | Green   |
+| 5   | Jeames  |
+
+### Example
+
+Input:
+
+| id  | student |
+|-----|---------|
+| 1   | Abbot   |
+| 2   | Doris   |
+| 3   | Emerson |
+| 4   | Green   |
+| 5   | Jeames  |
+
+Output:
+
+| id  | student |
+|-----|---------|
+| 1   | Doris   |
+| 2   | Abbot   |
+| 3   | Green   |
+| 4   | Emerson |
+| 5   | Jeames  |
+
+### Explanation
+
+The adjacent students in the table are `Abbot` and `Doris`, `Emerson` and `Green`, `Green` and `Jeames`.
+
+So we need to change their seats.
+
+### Solution
+
+```
+SELECT 
+    CASE 
+        WHEN MOD(id, 2) = 0 THEN id - 1
+        ELSE id + 1
+    END AS id,
+    CASE 
+        WHEN MOD(id, 2) = 0 THEN (SELECT student FROM seat WHERE id = seat.id - 1)
+        ELSE (SELECT student FROM seat WHERE id = seat.id + 1)
+    END AS student
+FROM seat
+ORDER BY id
+```
+
+UPDATE seat
+SET student = CASE
+    WHEN MOD(id, 2) = 0 THEN student + 2
+    ELSE student - 2
+END
+WHERE MOD(id, 2) = 1;

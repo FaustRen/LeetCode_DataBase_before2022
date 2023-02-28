@@ -1,0 +1,79 @@
+
+
+LeetCode 225. Product Sales Analysis III
+
+Input:
+
+Table: Sales
+
+| product_id | product_name | unit_price |
+| ---------- | ------------ | ---------- |
+| 1          | A            | 10         |
+| 2          | B            | 20         |
+| 3          | C            | 30         |
+
+Table: Orders
+
+| order_id | product_id | quantity |
+| -------- | ---------- | -------- |
+| 1        | 1          | 10       |
+| 2        | 2          | 5        |
+| 3        | 1          | 5        |
+
+Output:
+
+Table: Sales Analysis
+
+| product_name | total_quantity | total_price |
+| ------------ | -------------- | ----------- |
+| A            | 15             | 150         |
+| B            | 5              | 100         |
+| C            | 0              | 0           |
+
+Example 1:
+
+Input:
+
+Table: Sales
+
+| product_id | product_name | unit_price |
+| ---------- | ------------ | ---------- |
+| 1          | A            | 10         |
+| 2          | B            | 20         |
+| 3          | C            | 30         |
+
+Table: Orders
+
+| order_id | product_id | quantity |
+| -------- | ---------- | -------- |
+| 1        | 1          | 10       |
+| 2        | 2          | 5        |
+| 3        | 1          | 5        |
+
+Output:
+
+Table: Sales Analysis
+
+| product_name | total_quantity | total_price |
+| ------------ | -------------- | ----------- |
+| A            | 15             | 150         |
+| B            | 5              | 100         |
+| C            | 0              | 0           |
+
+Explanation:
+
+Product A has a total quantity of 10 from order 1 and 5 from order 3, and a unit price of 10, so the total price is 10 * 10 + 10 * 5 = 150.
+
+Product B has a total quantity of 5 from order 2 and a unit price of 20, so the total price is 20 * 5 = 100.
+
+Product C has no orders, so the total quantity and total price are both 0.。
+
+SELECT 
+    p.product_name,
+    SUM(s.quantity) AS total_quantity,
+    SUM(s.price) AS total_sales
+FROM Sales s
+LEFT JOIN Product p
+    ON s.product_id = p.product_id
+GROUP BY p.product_name
+ORDER BY total_sales DESC;

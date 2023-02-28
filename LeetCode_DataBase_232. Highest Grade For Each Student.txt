@@ -1,0 +1,77 @@
+
+
+## LeetCode 232. Highest Grade For Each Student
+
+### Problem
+
+Given a table `scores`, which has m columns and n rows that represent the scores of n students in m subjects, return the highest scores of each student.
+
+### Table: `scores`
+
+| id | Math | English | Science |
+|----|------|---------|---------|
+| 1  | 88   | 67      | 75      |
+| 2  | 99   | 89      | 98      |
+| 3  | 65   | 87      | 82      |
+
+### Output Table
+
+| id | Highest |
+|----|---------|
+| 1  | 88      |
+| 2  | 99      |
+| 3  | 87      |
+
+### Example 1
+
+#### Input
+
+| id | Math | English | Science |
+|----|------|---------|---------|
+| 1  | 88   | 67      | 75      |
+| 2  | 99   | 89      | 98      |
+| 3  | 65   | 87      | 82      |
+
+#### Output
+
+| id | Highest |
+|----|---------|
+| 1  | 88      |
+| 2  | 99      |
+| 3  | 87      |
+
+#### Explanation
+
+For the student with id 1, the highest score is 88 in Math.
+For the student with id 2, the highest score is 99 in Math.
+For the student with id 3, the highest score is 87 in English.
+
+### Example 2
+
+#### Input
+
+| id | Math | English | Science |
+|----|------|---------|---------|
+| 1  | 88   | 67      | 75      |
+| 2  | 99   | 89      | 98      |
+| 3  | 65   | 87      | 100     |
+
+#### Output
+
+| id | Highest |
+|----|---------|
+| 1  | 88      |
+| 2  | 99      |
+| 3  | 100     |
+
+#### Explanation
+
+For the student with id 1, the highest score is 88 in Math.
+For the student with id 2, the highest score is 99 in Math.
+For the student with id 3, the highest score is 100 in Science.
+
+SELECT s.student_id, s.student_name, MAX(g.grade) AS highest_grade
+FROM student s
+JOIN grade g
+ON s.student_id = g.student_id
+GROUP BY s.student_id, s.student_name;
