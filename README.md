@@ -23,5 +23,5 @@
 ![image](https://github.com/FaustRen/LeetCode_DataBase_before2022/blob/main/test_GPT3_function.png)
 ---
 
-4. use loop to get each LeetCode Problem's content and result
+4. use loop to get each LeetCode Problem's content and result, and then save it(.txt).
 ![image](https://github.com/FaustRen/LeetCode_DataBase_before2022/blob/main/loop_to_get_result.png)
