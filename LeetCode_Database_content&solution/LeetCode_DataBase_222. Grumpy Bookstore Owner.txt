@@ -1,0 +1,83 @@
+
+
+## LeetCode 222. Grumpy Bookstore Owner
+
+### Problem
+
+Today, the bookstore owner has a store open for `customers.length` minutes.  Every minute, some number of customers `(customers[i])` enter the store, and all those customers leave after the end of that minute.
+
+On some minutes, the bookstore owner is grumpy.  If the bookstore owner is grumpy on the i-th minute, `grumpy[i] = 1`, otherwise `grumpy[i] = 0`.  When the bookstore owner is grumpy, the customers of that minute are not satisfied, otherwise they are satisfied.
+
+The bookstore owner knows a secret technique to keep themselves not grumpy for `X` minutes straight, but can only use it once.
+
+Return the maximum number of customers that can be satisfied throughout the day.
+
+### Example 1:
+
+<table>
+  <tr>
+    <th>Input</th>
+    <th>Output</th>
+  </tr>
+  <tr>
+    <td>
+      customers = [1,0,1,2,1,1,7,5]<br>
+      grumpy = [0,1,0,1,0,1,0,1]<br>
+      X = 3
+    </td>
+    <td>16</td>
+  </tr>
+</table>
+
+### Explanation
+
+The bookstore owner starts grumpy, but selling one book makes them not grumpy.
+
+The moment they become not grumpy, they can use their secret technique to be not grumpy for the next `X = 3` minutes.
+
+During those `3` minutes, the store has `1 + 0 + 1 + 2 + 1 = 5` customers.
+
+The store then becomes grumpy again and continues being grumpy until the `7`th minute, where the store sells one more book and becomes not grumpy.
+
+The moment they become not grumpy, they can use their secret technique again to be not grumpy until the `10`th minute.
+
+In total, the store sold `5 + 7 + 1 = 13` books during those `10` minutes.
+
+### Example 2:
+
+<table>
+  <tr>
+    <th>Input</th>
+    <th>Output</th>
+  </tr>
+  <tr>
+    <td>
+      customers = [9,10,4,2]<br>
+      grumpy = [1,1,1,0]<br>
+      X = 1
+    </td>
+    <td>17</td>
+  </tr>
+</table>
+
+### Explanation
+
+The bookstore owner starts grumpy and stays grumpy until the last minute.
+
+At the last minute, the store sells one book and the owner is not grumpy.
+
+The store sold `9 + 10 + 4 + 1 = 24` books in total, but only `17` of them were satisfied customers.
+
+SELECT
+    MAX(
+        IF(grumpy[i] = 0, customers[i], 0) +
+        IF(grumpy[i - 1] = 0, customers[i - 1], 0) +
+        IF(grumpy[i - 2] = 0, customers[i - 2], 0)
+    ) AS max_satisfied
+FROM 
+    (SELECT grumpy, customers, 
+        @i := @i + 1 AS i
+    FROM 
+        (SELECT @i := -1) AS init, 
+        (SELECT grumpy, customers FROM customers) AS t
+    ) AS t2;

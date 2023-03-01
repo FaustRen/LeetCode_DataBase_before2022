@@ -1,0 +1,37 @@
+
+
+## Problem
+
+Given a table `cooperate` that includes columns `actor` and `director`, return the names of actors and directors who have cooperated at least 3 times.
+
+## Table: `cooperate`
+
+| actor   | director |
+| ------- | -------- |
+| John    | James    |
+| John    | Jack     |
+| John    | James    |
+| Mary    | Jack     |
+| Mary    | James    |
+| Mary    | Jack     |
+| Mary    | Jack     |
+| Bob     | James    |
+| Bob     | Jack     |
+
+## Output
+
+| actor   | director |
+| ------- | -------- |
+| John    | James    |
+| Mary    | Jack     |
+
+## Explanation
+
+John and James have cooperated twice, and Mary and Jack have cooperated three times.
+
+SELECT a.name AS actor_name, d.name AS director_name
+FROM Actor a
+JOIN Movie m ON a.id = m.actor_id
+JOIN Director d ON m.director_id = d.id
+GROUP BY a.name, d.name
+HAVING COUNT(*) >= 3;

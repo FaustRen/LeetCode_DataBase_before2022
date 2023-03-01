@@ -1,0 +1,57 @@
+
+
+## 228. Sales Analysis I
+
+### Problem Statement
+
+Given a table `sales` with columns `seller_id`, `product`, `quantity` and `price`, write a SQL query to get the total sales value by seller.
+
+### Table: sales
+
+| seller_id | product | quantity | price |
+| --------- | ------- | -------- | ----- |
+| 1         | Pen     | 2        | 10    |
+| 1         | Pencil  | 3        | 5     |
+| 2         | Pen     | 4        | 10    |
+| 2         | Pencil  | 3        | 5     |
+
+### Output Table
+
+| seller_id | total_sales |
+| --------- | ---------- |
+| 1         | 45         |
+| 2         | 65         |
+
+### Example
+
+#### Input
+
+Table: `sales`
+
+| seller_id | product | quantity | price |
+| --------- | ------- | -------- | ----- |
+| 1         | Pen     | 2        | 10    |
+| 1         | Pencil  | 3        | 5     |
+| 2         | Pen     | 4        | 10    |
+| 2         | Pencil  | 3        | 5     |
+
+#### Output
+
+| seller_id | total_sales |
+| --------- | ---------- |
+| 1         | 45         |
+| 2         | 65         |
+
+#### Explanation
+
+Seller 1 has sold 2 Pens at 10 each and 3 Pencils at 5 each, so total sales value is 2 * 10 + 3 * 5 = 45.
+
+Seller 2 has sold 4 Pens at 10 each and 3 Pencils at 5 each, so total sales value is 4 * 10 + 3 * 5 = 65.
+
+SELECT
+    company,
+    SUM(IF(month = 'Jan', revenue, 0)) AS 'Jan_Revenue',
+    SUM(IF(month = 'Feb', revenue, 0)) AS 'Feb_Revenue',
+    SUM(IF(month = 'Mar', revenue, 0)) AS 'Mar_Revenue'
+FROM Sales
+GROUP BY company;

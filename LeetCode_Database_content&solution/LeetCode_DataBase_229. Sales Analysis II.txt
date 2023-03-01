@@ -1,0 +1,48 @@
+
+
+## LeetCode 229. Sales Analysis II
+
+### Problem
+
+Given the `sales` table, write a SQL query to find the total number of orders and total sales amount for each product category.
+
+| product_category | order_id | product_id | quantity | price |
+|-----------------|----------|------------|----------|-------|
+| Electronics     | 1        | 100        | 10       | 5     |
+| Clothing        | 2        | 101        | 5        | 10    |
+| Clothing        | 3        | 102        | 10       | 10    |
+
+### Output
+
+| product_category | total_orders | total_sales |
+|-----------------|--------------|-------------|
+| Electronics     | 1            | 50          |
+| Clothing        | 2            | 100         |
+
+### Example
+
+| product_category | order_id | product_id | quantity | price |
+|-----------------|----------|------------|----------|-------|
+| Electronics     | 1        | 100        | 10       | 5     |
+| Clothing        | 2        | 101        | 5        | 10    |
+| Clothing        | 3        | 102        | 10       | 10    |
+
+### Output
+
+| product_category | total_orders | total_sales |
+|-----------------|--------------|-------------|
+| Electronics     | 1            | 50          |
+| Clothing        | 2            | 100         |
+
+### Explanation
+
+For the Electronics category, there is only one order with a total sales amount of 50 (10 * 5). For the Clothing category, there are two orders with a total sales amount of 100 (5 * 10 + 10 * 10).
+
+SELECT
+    c.customer_id,
+    c.customer_name,
+    SUM(IF(o.order_date > DATE_SUB(NOW(), INTERVAL 1 YEAR), o.order_price, 0)) AS total_sales_last_year
+FROM Customer c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.customer_name
+HAVING total_sales_last_year > 0;

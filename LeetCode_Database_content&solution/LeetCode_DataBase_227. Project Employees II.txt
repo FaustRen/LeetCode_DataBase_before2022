@@ -1,0 +1,74 @@
+
+
+227. Project Employees II
+
+Table: Project
+
+| Column Name | Type    |
+| ----------- | ------- |
+| project_id  | int     |
+| employee_id | int     |
+
+Table: Employee
+
+| Column Name | Type    |
+| ----------- | ------- |
+| employee_id | int     |
+| name        | varchar |
+
+Table: Project_Employee
+
+| Column Name | Type    |
+| ----------- | ------- |
+| project_id  | int     |
+| employee_id | int     |
+
+Write an SQL query to find the names of all employees in the Employee table who are not assigned to any project in the Project table.
+
+Example
+
+Project table:
+
+| project_id | employee_id |
+| ---------- | ----------- |
+| 1          | 1           |
+| 1          | 2           |
+| 2          | 2           |
+| 2          | 3           |
+
+Employee table:
+
+| employee_id | name     |
+| ----------- | -------- |
+| 1           | John     |
+| 2           | Doe      |
+| 3           | Smith    |
+| 4           | Mark     |
+
+Project_Employee table:
+
+| project_id | employee_id |
+| ---------- | ----------- |
+| 1          | 1           |
+| 1          | 2           |
+| 2          | 2           |
+| 2          | 3           |
+
+Result table:
+
+| name     |
+| -------- |
+| Mark     |
+
+Explanation
+
+Employee with id 4 (Mark) is not assigned to any project in the Project table.
+
+```sql
+SELECT p.project_name, COUNT(DISTINCT e.employee_id) AS num_employees
+FROM Project p 
+LEFT JOIN Employee_Project ep ON p.project_id = ep.project_id
+LEFT JOIN Employee e ON ep.employee_id = e.employee_id
+GROUP BY p.project_name
+HAVING COUNT(DISTINCT e.employee_id) >= 2;
+```

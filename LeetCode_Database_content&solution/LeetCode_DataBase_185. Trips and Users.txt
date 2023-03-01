@@ -1,0 +1,66 @@
+
+
+## 185. Trips and Users
+
+Table: `Trips`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| trip_id     | int     |
+| driver_id   | int     |
+| rider_id    | int     |
+| request_at  | datetime|
+| status      | enum    |
+
+Table: `Users`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| user_id     | int     |
+| name        | varchar |
+| birthdate   | date    |
+| country     | varchar |
+| city        | varchar |
+
+Write a SQL query to find the **name** and **birthdate** of the oldest rider for each unique **trip**.
+
+**Trips** table:
+
+| trip_id | driver_id | rider_id | request_at            | status   |
+| ------- | --------- | -------- | -------------------- | -------- |
+| 1       | 10        | 30       | 2019-01-01 00:00:00  | completed|
+| 2       | 15        | 40       | 2019-01-03 00:00:00  | cancelled|
+| 3       | 20        | 50       | 2019-01-10 00:00:00  | completed|
+
+**Users** table:
+
+| user_id | name     | birthdate   | country | city      |
+| ------- | -------- | ----------- | ------- | --------- |
+| 10      | Daniel   | 1985-01-12  | USA     | San Jose  |
+| 15      | Jade     | 2003-11-29  | USA     | Seattle   |
+| 20      | Bob      | 2000-10-05  | Canada  | Toronto   |
+| 30      | John     | 1998-05-06  | USA     | New York  |
+| 40      | Amy      | 1997-03-15  | USA     | San Jose  |
+| 50      | David    | 1983-04-20  | Canada  | Vancouver |
+
+**Output** table:
+
+| trip_id | name     | birthdate   |
+| ------- | -------- | ----------- |
+| 1       | John     | 1998-05-06  |
+| 2       | Amy      | 1997-03-15  |
+| 3       | David    | 1983-04-20  |
+
+**Explanation**
+
+Trip 1 was completed by rider John, who was born on 1998-05-06.
+
+Trip 2 was cancelled by rider Amy, who was born on 1997-03-15.
+
+Trip 3 was completed by rider David, who was born on 1983-04-20.
+
+SELECT Request_at Day, 
+COUNT(CASE WHEN status = 'completed' THEN 1 END) completed_trips, 
+COUNT(DISTINCT CASE WHEN status = 'completed' THEN Requester_id END) completed_users
+FROM Trips
+GROUP BY Request_at;

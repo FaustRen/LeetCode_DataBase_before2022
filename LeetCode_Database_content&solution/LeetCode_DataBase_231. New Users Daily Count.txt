@@ -1,0 +1,41 @@
+
+
+## LeetCode 231. New Users Daily Count
+
+### Problem
+
+Given a table `logs` recording the user id and action time of each user, write a SQL query to find the daily count of new users.
+
+Table: `logs`
+
+| Column Name | Type    |
+| ----------- | ------- |
+| user_id     | int     |
+| action_date | date    |
+
+### Example
+
+Input
+
+| user_id | action_date |
+| ------- | ----------- |
+| 1       | 2019-01-01  |
+| 2       | 2019-01-01  |
+| 3       | 2019-01-02  |
+| 1       | 2019-01-03  |
+
+Output
+
+| action_date | new_users |
+| ----------- | --------- |
+| 2019-01-01  | 2         |
+| 2019-01-02  | 1         |
+| 2019-01-03  | 0         |
+
+### Explanation
+
+On 2019-01-01, there are two new users, user 1 and user 2. On 2019-01-02, there is only one new user, user 3. On 2019-01-03, there is no new user.
+
+SELECT DATE(created_at) AS day, COUNT(*) AS new_users_count 
+FROM users 
+GROUP BY DATE(created_at)

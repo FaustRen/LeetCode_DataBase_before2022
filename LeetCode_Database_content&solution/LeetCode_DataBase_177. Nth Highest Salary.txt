@@ -1,0 +1,78 @@
+
+
+## 177. Nth Highest Salary
+
+### Table: Employee
+
+| Id | Salary |
+|----|-------|
+| 1  | 100   |
+| 2  | 200   |
+| 3  | 300   |
+
+### Output Table:
+
+| NthHighestSalary |
+|------------------|
+
+### Example 1
+
+#### Input
+
+```
+Table: Employee
+
+Id	Salary
+1	100
+2	200
+3	300
+
+N = 2
+```
+
+#### Output
+
+```
+NthHighestSalary
+200
+```
+
+### Example 2
+
+#### Input
+
+```
+Table: Employee
+
+Id	Salary
+1	100
+2	200
+3	300
+
+N = 1
+```
+
+#### Output
+
+```
+NthHighestSalary
+300
+```
+
+### Explanation
+
+Write a SQL query to get the nth highest salary from the `Employee` table.
+
+```
+SELECT MAX(Salary) AS NthHighestSalary
+FROM Employee
+WHERE (SELECT COUNT(DISTINCT Salary) FROM Employee WHERE Salary >= e.Salary) >= N
+```
+
+```sql
+SELECT
+  (SELECT DISTINCT Salary
+   FROM Employee
+   ORDER BY Salary DESC
+   LIMIT N-1, 1) AS NthHighestSalary
+```

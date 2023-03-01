@@ -1,0 +1,66 @@
+
+
+## LeetCode 199. Investment in Equity
+
+### Problem
+
+You are given a table `investments`, which holds the information about the investments made by a company in different equity instruments.
+
+| id | equity_instrument | investment_date | shares | price |
+|----|------------------|----------------|--------|-------|
+| 1  | AAPL             | 2019-08-01     | 10     | 167   |
+| 2  | GOOGL            | 2019-08-02     | 15     | 1140  |
+| 3  | AAPL             | 2019-08-03     | 20     | 170   |
+
+Write a SQL query to find the total investment in each equity instrument.
+
+### Input
+
+The table `investments` is defined as follows:
+
+| Column Name | Type    |
+|-------------|---------|
+| id          | int     |
+| equity_instrument | varchar |
+| investment_date | date   |
+| shares      | int     |
+| price       | int     |
+
+### Output
+
+| equity_instrument | total_investment |
+|-------------------|------------------|
+| AAPL              | 3400             |
+| GOOGL             | 17100            |
+
+### Example
+
+Input
+
+| id | equity_instrument | investment_date | shares | price |
+|----|------------------|----------------|--------|-------|
+| 1  | AAPL             | 2019-08-01     | 10     | 167   |
+| 2  | GOOGL            | 2019-08-02     | 15     | 1140  |
+| 3  | AAPL             | 2019-08-03     | 20     | 170   |
+
+Output
+
+| equity_instrument | total_investment |
+|-------------------|------------------|
+| AAPL              | 3400             |
+| GOOGL             | 17100            |
+
+Explanation
+
+The total investment in AAPL is 10 * 167 + 20 * 170 = 3400.
+
+The total investment in GOOGL is 15 * 1140 = 17100.
+
+```sql
+SELECT t2.name AS 'Name', SUM(t1.amount) AS 'Total Investment'
+FROM Transactions AS t1
+JOIN Accounts AS t2
+ON t1.account_id = t2.id
+WHERE t1.type = 'Equity'
+GROUP BY t2.name;
+```

@@ -1,0 +1,53 @@
+
+
+## 192. Find Median Given Frequency of Numbers
+
+### Description
+Given an array of integers nums and an array of numbers frequencies, return the median of the given array of numbers after applying the given frequencies.
+
+### Example 1:
+
+**Input:** nums = [1,2,3,4,5], frequencies = [2,3,2,3,3]
+
+**Output:** 3.0
+
+**Explanation:**
+
+The input array of numbers is [1,2,3,4,5], and the corresponding frequencies are [2,3,2,3,3].
+
+The median is calculated by first sorting the numbers according to their frequencies:
+
+- Sorted numbers: [1,2,2,3,3,3,4,4,4,5,5,5]
+
+- The median is the middle element, which is 3.
+
+### Example 2:
+
+**Input:** nums = [1,2,3], frequencies = [2,3,1]
+
+**Output:** 2.0
+
+**Explanation:**
+
+The input array of numbers is [1,2,3], and the corresponding frequencies are [2,3,1].
+
+The median is calculated by first sorting the numbers according to their frequencies:
+
+- Sorted numbers: [1,1,2,2,2,3]
+
+- The median is the middle element, which is 2.
+
+SELECT 
+    (SELECT 
+            SUM(f) 
+        FROM 
+            Numbers
+        WHERE 
+            n <= (SELECT MAX(n) 
+                  FROM Numbers 
+                  WHERE f >= (SELECT SUM(f) / 2 
+                              FROM Numbers))
+    ) >= (SELECT SUM(f) / 2 
+          FROM Numbers) 
+    AS median
+FROM Numbers;

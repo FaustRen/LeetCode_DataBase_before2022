@@ -1,0 +1,69 @@
+
+
+## LeetCode 213. Average Salary: Departments VS Company
+
+### Problem
+
+Given the `Employee` table, which has 3 columns: `Id`, `Department` and `Salary`.
+
+```
++----+------------+--------+
+| Id | Department | Salary |
++----+------------+--------+
+| 1  | A          | 2341   |
+| 2  | A          | 341    |
+| 3  | A          | 15     |
+| 4  | B          | 33     |
+| 5  | B          | 433    |
+| 6  | B          | 53     |
+| 7  | B          | 653    |
+| 8  | C          | 23     |
+| 9  | C          | 4      |
+| 10 | C          | 5346   |
++----+------------+--------+
+```
+
+The `Id` column is a primary key column for this table.
+
+Write a SQL query to find the average salary of each of the departments and the average salary of the company.
+
+### Output
+
+For the output, your query should return the following two columns, `Department` and `Average_Salary`:
+
+```
++------------+---------------+
+| Department | Average_Salary |
++------------+---------------+
+| A          | 876.66        |
+| B          | 354.66        |
+| C          | 1766.33       |
+| Company    | 1144.50       |
++------------+---------------+
+```
+
+### Explanation
+
+The average salary of `Department A` is `(2341 + 341 + 15) / 3 = 876.66`
+
+The average salary of `Department B` is `(33 + 433 + 53 + 653) / 4 = 354.66`
+
+The average salary of `Department C` is `(23 + 4 + 5346) / 3 = 1766.33`
+
+The average salary of the `Company` is `(2341 + 341 + 15 + 33 + 433 + 53 + 653 + 23 + 4 + 5346) / 10 = 1144.50`
+
+SELECT
+    d.Name,
+    AVG(e.Salary) AS Average_Salary_Dept
+FROM
+    Department d
+LEFT JOIN Employee e ON d.Id = e.DepartmentId
+GROUP BY d.Name
+
+UNION ALL
+
+SELECT
+    'Company' AS Name,
+    AVG(e.Salary) AS Average_Salary_Dept
+FROM
+    Employee e

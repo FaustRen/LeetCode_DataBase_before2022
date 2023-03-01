@@ -1,0 +1,44 @@
+
+
+## 230. Game Play Analysis V
+
+### Problem Statement
+
+Given an array of strings `logs`, representing the logs of a game play, where `logs[i] = [player, op, score]`:
+
+- `player` is the player's name, a string.
+- `op` is the operation, that is either `+` or `-`.
+- `score` is the change in score, an integer.
+
+Return the score of each player at the end of the game.
+
+### Example 1:
+
+**Input:** logs = [["Alex","+",121],["Alex","-",10],["Bob","+",90],["Bob","-",20],["Alex","+",40]]
+
+**Output:** [151, 70]
+
+**Explanation:** Alex's score is 151 and Bob's score is 70.
+
+### Example 2:
+
+**Input:** logs = [["Alice","+",20],["Bob","-",10],["Alice","+",40],["Bob","+",20]]
+
+**Output:** [60, 30]
+
+**Explanation:** Alice's score is 60 and Bob's score is 30.
+
+### Constraints:
+
+- `1 <= logs.length <= 1000`
+- `2 <= logs[i][0].length <= 10`
+- `logs[i][1] = "+" or "-".`
+- `0 <= logs[i][2] <= 100`
+
+SELECT
+    player_id,
+    MAX(CASE WHEN event_type = 'Login' THEN event_date ELSE NULL END) AS last_login_date,
+    MAX(CASE WHEN event_type = 'Logout' THEN event_date ELSE NULL END) AS last_logout_date,
+    TIMESTAMPDIFF(SECOND, MAX(CASE WHEN event_type = 'Login' THEN event_date ELSE NULL END), MAX(CASE WHEN event_type = 'Logout' THEN event_date ELSE NULL END)) AS play_time_seconds
+FROM Activity
+GROUP BY player_id;
